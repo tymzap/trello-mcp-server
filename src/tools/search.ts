@@ -9,9 +9,7 @@ export function registerSearchTool(mcpServer: McpServer) {
     {
       title: "Search",
       description: "Search for Trello cards using various search operators.",
-      inputSchema: z.object({
-        query: z.string().describe(queryDescription),
-      }),
+      inputSchema,
     },
     async ({ query }) => {
       const result = await trelloApiRequest("search", {
@@ -19,6 +17,7 @@ export function registerSearchTool(mcpServer: McpServer) {
         trelloToken: ENV.TRELLO_TOKEN,
         searchParams: {
           query,
+          cards_limit: `30`,
           modelTypes: "cards",
           card_fields:
             "id,name,url,dateLastActivity,desc,closed,due,idBoard,idList,labels",
@@ -32,7 +31,8 @@ export function registerSearchTool(mcpServer: McpServer) {
   );
 }
 
-const queryDescription = `Search query with optional operators:
+const inputSchema = z.object({
+  query: z.string().describe(`Search query with optional operators:
 @name or member:name - Cards assigned to a member. @me for your cards.
 #label or label:name - Cards with a specific label.
 board:id or board:keyword - Cards from a specific board or boards matching keyword.
@@ -42,4 +42,5 @@ due:day - Cards due in 24 hours. Also: due:week, due:month, due:overdue, or due:
 edited:day - Cards edited in last 24 hours. Also: edited:week, edited:month, or edited:21 for last 21 days.
 description:text, checklist:text, comment:text, name:text - Match text in card fields.
 is:open, is:complete, is:incomplete, is:starred - Filter by card status.
-sort:created, sort:edited, sort:due - Sort results.`;
+sort:created, sort:edited, sort:due - Sort results.`),
+});

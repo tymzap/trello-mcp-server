@@ -7,7 +7,7 @@ type TrelloApiRequestParams = {
   appKey: string;
   method?: string;
   body?: JsonObject;
-  searchParams?: Record<string, string>;
+  searchParams?: JsonObject;
 };
 
 export async function trelloApiRequest<Data>(
@@ -35,14 +35,14 @@ export async function trelloApiRequest<Data>(
   return data;
 }
 
-function prepareUrl(path: string, searchParams?: Record<string, string>) {
+function prepareUrl(path: string, searchParams?: JsonObject) {
   const baseUrl = `${API_URL}/${path}`;
 
   if (!searchParams) {
     return baseUrl;
   }
 
-  const search = `?${new URLSearchParams(searchParams).toString()}`;
+  const search = `?${prepareSearchParamsString(searchParams)}`;
 
   return `${baseUrl}${search}`;
 }
@@ -66,6 +66,16 @@ async function prepareRequestInit({
   }
 
   return init;
+}
+
+function prepareSearchParamsString(input: JsonObject): string {
+  const init = Object.fromEntries(
+    Object.entries(input).map(([key, value]) => {
+      return [key, value?.toString() ?? ""];
+    }),
+  );
+
+  return new URLSearchParams(init).toString();
 }
 
 function prepareHeaders(appKey: string, trelloToken: string) {
