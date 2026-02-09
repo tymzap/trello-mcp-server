@@ -1,5 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { registerDeleteCardTool } from "./tools/delete-card";
 import { registerGetBoardsTool } from "./tools/get-boards";
 import { registerGetBoardCardsTool } from "./tools/get-board-cards";
 import { registerSearchTool } from "./tools/search";
@@ -10,6 +11,7 @@ const mcpServer = new McpServer({
   version: "0.4.0",
 });
 
+registerDeleteCardTool(mcpServer);
 registerGetBoardsTool(mcpServer);
 registerGetBoardCardsTool(mcpServer);
 registerSearchTool(mcpServer);
