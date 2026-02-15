@@ -42,5 +42,7 @@ due:day - Cards due in 24 hours. Also: due:week, due:month, due:overdue, or due:
 edited:day - Cards edited in last 24 hours. Also: edited:week, edited:month, or edited:21 for last 21 days.
 description:text, checklist:text, comment:text, name:text - Match text in card fields.
 is:open, is:complete, is:incomplete, is:starred - Filter by card status.
-sort:created, sort:edited, sort:due - Sort results.`),
+sort:created, sort:edited, sort:due - Sort results.
+Consider asking the user if they want to include @me to filter cards assigned to them. Some users want to see all cards they have access tom while others prefer to see only cards explicitly assigned to them.
+`),
 });
