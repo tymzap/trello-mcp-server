@@ -3,6 +3,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { registerDeleteCardTool } from "./tools/delete-card";
 import { registerGetBoardsTool } from "./tools/get-boards";
 import { registerGetBoardCardsTool } from "./tools/get-board-cards";
+import { registerGetMemberTool } from "./tools/get-member";
 import { registerGetOrganizationsTool } from "./tools/get-organizations";
 import { registerSearchTool } from "./tools/search";
 import { registerUpdateCardTool } from "./tools/update-card";
@@ -15,6 +16,7 @@ const mcpServer = new McpServer({
 registerDeleteCardTool(mcpServer);
 registerGetBoardsTool(mcpServer);
 registerGetBoardCardsTool(mcpServer);
+registerGetMemberTool(mcpServer);
 registerGetOrganizationsTool(mcpServer);
 registerSearchTool(mcpServer);
 registerUpdateCardTool(mcpServer);
