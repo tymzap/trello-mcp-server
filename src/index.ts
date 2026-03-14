@@ -1,5 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { registerCreateCardTool } from "./tools/create-card";
 import { registerDeleteCardTool } from "./tools/delete-card";
 import { registerGetBoardsTool } from "./tools/get-boards";
 import { registerGetBoardCardsTool } from "./tools/get-board-cards";
@@ -10,9 +11,10 @@ import { registerUpdateCardTool } from "./tools/update-card";
 
 const mcpServer = new McpServer({
   name: "trello",
-  version: "0.4.0",
+  version: "0.5.0",
 });
 
+registerCreateCardTool(mcpServer);
 registerDeleteCardTool(mcpServer);
 registerGetBoardsTool(mcpServer);
 registerGetBoardCardsTool(mcpServer);
